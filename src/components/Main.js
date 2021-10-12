@@ -4,47 +4,58 @@ import axios from 'axios';
 import Task from './Task';
 import AddTask from './AddTask';
 import Header from './Header';
-import { getData } from '../services/ApiCalls';
-
-// import {getData} from '../services/ApiCalls'
-
 
 const Main = () => {
     const [inputValue, setInputValue] = useState('');
-    const [tasks,setTasks] = useState([]);
-    const [taskRemain, setTaskRemain] = useState(tasks.length);
+    const [tasks,setTasks] = useState();
 
     const accessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxNjJlM2U1MzVkODdiZmYxMzBiOTJlZiIsIm5hbWUiOiJUYWxUIiwiaWF0IjoxNjMzODcwODI5LCJleHAiOjE2MzUwODA0Mjl9.VaTiwyqup-dO5YcnnYlSwCyfCGSvxxcxF70W0HQ0TFo';
     const apiUrl = 'http://todo.etodo.xyz/api/v1';
 
-    const getData = () => {
-    const authAxios = axios.create({
-        baseURL: apiUrl,
-        headers: {
-            Authorization: `Bearer ${accessToken}`
-        }
-    })
-    authAxios.get('/tasks')
-    .then(response => {
-        console.log("wwwwwwwww",response);
-        
-        return response
-    })
-    .catch(error => {
-        console.log(error)
-    })
-}
-
+    async function getData(){
+        const authAxios = axios.create({
+            baseURL: apiUrl,
+            headers: {
+                Authorization: `Bearer ${accessToken}`
+            }
+        })
+        try{
+            await authAxios.get('/tasks')
+            .then(response => {
+                setTasks(response.data.docs);
+                console.log("wwwwwwwww",response);
+                
+            })
+        } catch(error){
+            console.log(error)
+        } 
+    }
+    async function postData(newTask){
+        const authAxios = axios.create({
+            baseURL: apiUrl,
+            headers: {
+                Authorization: `Bearer ${accessToken}`
+            }
+        })
+        try{
+            await authAxios.post('/tasks',newTask)
+            .then(response => {
+                console.log(response)
+            })
+        } catch(error){
+            console.log(error)
+        } 
+    }
+    
+    
     useEffect(() => {
-        const myData = getData()
-        console.log('ffffffffffff', myData)
+        getData();
     },[])
     
+    console.log('-----hhh----',tasks)
     const hendleCheckBox = (e) => {
         if(e.target.checked){
-            console.log("............ true")
-            console.log("............ taskRemain",taskRemain)
-
+            console.log("............. true")
         }
     }
 
@@ -56,8 +67,8 @@ const Main = () => {
     
     const handleSubmit = (e) => {
         e.preventDefault();
-        setTasks([...tasks, {title:inputValue, id:uniqid()}]);
-        setTaskRemain(tasks.length)
+        const newTask = {title:inputValue, body:"", done:false};
+        postData(newTask);
         setInputValue('')
     }
 
@@ -66,20 +77,22 @@ const Main = () => {
     }
     // console.log(tasks);
     return ( <>
+        {!tasks ? <h1>Loading</h1>
+        : 
+        <>
         <Header taskNumber={tasks.length} />
         {tasks.map(task => <Task
-            key={task.id}
+            key={task._id}
             toggleCheck={hendleCheckBox}
             task={task.title}
-            id={task.id}
+            id={task._id}
             deleteTask={handleDelete}
         />)}
-        <AddTask
-            handleInput={handleChange}
-            inputValue={inputValue}
-            task={handleSubmit}
-        />
+        <AddTask handleInput={handleChange} inputValue={inputValue} task={handleSubmit} />
+        </> 
+        }
     </> );
 }
  
 export default Main;
+
