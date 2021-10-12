@@ -103,13 +103,14 @@ const Main = () => {
         } 
     }
     
-    return ( <div id='container' style={{background:'red'}}>
-        {!tasks ? <h1>Loading Tasks</h1>
+    return ( 
+        <div id='container'>
+        {!tasks ? <h1>No tasks yet...</h1>
         : 
-        <div>
+        <>
             <Header taskNumber={tasks.length} remains={handleRemainsTasks()}/>
-            <ul style={{background:'green'}}>
-                {tasks.map(task => <li>
+            <ul >
+                {tasks.map(task => <li className={task.done ? 'task-li-done' : 'task-li'}>
                     <Task
                         key={task._id}
                         toggleCheck={patchtData}
@@ -119,7 +120,7 @@ const Main = () => {
                     />
                 </li>)}
             </ul>
-        </div> 
+        </> 
         }
         <AddTask handleInput={handleChange} inputValue={inputValue} task={handleSubmit} />
     </div> );

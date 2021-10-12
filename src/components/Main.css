@@ -1,32 +1,79 @@
+.App{
+    background: rgb(248,121,146);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+}
 #add-task{
-    width: 500px;
+    /* width: 500px; */
+    /* padding: 40px 0; */
+    padding-bottom: 40px;
+    padding-top: 20px;
 }
 #header{
     display: flex;
     justify-content: space-evenly;
     align-items: center;
+    padding-top: 50px;
 }
 #container{
+    background: white;
+    width: 500px;
+    height: 600px;
+    border-radius: 10%;
+    box-shadow: 0px 0px 50px -8px rgba(0,0,0,0.58);
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 500px;
-
+    justify-content: space-evenly;
 }
-li{
-    margin-top: 25px;
+button{
+    background: white;
+    border-radius: 30px;
+    padding: 10px 30px;
 }
+button:hover{
+    background: rgb(255, 241, 246);
+}
+.check-box{
+    margin-right: 10px;
+}
+.add-Task-input{
+    background: white;
+    border-radius: 30px;
+    padding: 10px 40px;
+    font-size: larger;
+}
+span{
+    font-size:x-large;
+}
+.task-li{
+    background: white;
+    margin: 30px 10px 0 10px;
+    padding: 5px 0;
+    transition: background-color 0.5s ease;
+}
+.task-li-done{
+    background-color: rgb(117, 231, 166);
+    margin: 30px 10px 0 10px;
+    padding: 5px 0;
+    transition: background-color 0.5s ease;
+}
+/* li:hover{
+    background: rgb(250, 246, 247);
+} */
 ul{
     list-style-type: none;
-    padding:50px 0;
+    padding:5px 0;
     width: 500px;
-}
-.deletBtn{
-    background-color: blueviolet;
+    font-size: larger;
 }
 form{
     display: flex;
     justify-content: space-between;
-    margin: 0 50px;
+    margin: 0 30px;
+}
+h1{
+    margin: 0;
+    text-align: center;
 }
