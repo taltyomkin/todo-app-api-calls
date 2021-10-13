@@ -113,9 +113,8 @@ const Main = () => {
         <>
             <Header taskNumber={tasks.length} remains={handleRemainsTasks()}/>
             <ul >
-                {tasks.map(task => <li className={task.done ? 'task-li-done' : 'task-li'}>
+                {tasks.map(task => <li key={task._id} className={task.done ? 'task-li-done' : 'task-li'}>
                     <Task
-                        key={task._id}
                         toggleCheck={patchtData}
                         task={task.title}
                         id={task._id}
