@@ -29,6 +29,7 @@ const Main = () => {
             console.log(error)
         } 
     }
+    
     async function postData(newTask){
         const authAxios = axios.create({
             baseURL: apiUrl,
@@ -45,6 +46,7 @@ const Main = () => {
             console.log(error)
         } 
     }
+    
     async function patchtData(id,checked){
         const authAxios = axios.create({
             baseURL: apiUrl,
@@ -62,6 +64,7 @@ const Main = () => {
             console.log(error)
         } 
     }
+    
     async function deleteData(id){
         const authAxios = axios.create({
             baseURL: apiUrl,
